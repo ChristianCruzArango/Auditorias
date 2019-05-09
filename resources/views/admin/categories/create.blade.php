@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-4 ml-auto mr-auto text-center">
                             <button class="btn btn-primary btn-raised">
-                                Registrar Producto
+                                Registrar Categorìa
                             </button>
                             <a href="{{ url('/admin/categories') }}" class="btn btn-warning">Cancelar</a>
                         </div>

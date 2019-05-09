@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Auditoría | Usuarios')
+@section('title','Auditoría | Dashboard')
 @section('body-class','profile-page sidebar-collapse')
     <style>
         #mapid { height: 400px; }

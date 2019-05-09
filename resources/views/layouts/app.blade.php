@@ -53,14 +53,17 @@
                                     {{ __("Inicio") }}
                                 </a>
                             @if (auth()->user()->role_id == 1)
-                                <a href="{{ url('/users') }}" class="dropdown-item">
+                                <a href="{{ url('/admin/users') }}" class="dropdown-item">
                                     {{ __("Gestionar Usuarios") }}
-                                </a>
-                                <a href="{{ url('/employee') }}" class="dropdown-item">
-                                    {{ __("Gestionar Empleados") }}
                                 </a>
                                 <a href="{{ url('/admin/categories') }}" class="dropdown-item">
                                     {{ __("Gestionar Categorías") }}
+                                </a>
+                                <a href="{{ url('/admin/auditorias') }}" class="dropdown-item">
+                                    {{ __("Gestionar Auditoría") }}
+                                </a>
+                                <a href="{{ url('/admin/equipos') }}" class="dropdown-item">
+                                    {{ __("Equipos de Auditoria") }}
                                 </a>
                             @endif
                         <a href="{{ route('logout') }}" class="dropdown-item"  onclick="event.preventDefault();
