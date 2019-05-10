@@ -28,9 +28,20 @@
                                 <div class="tab-pane active" id="dashboard-1">
                                     <div class="row">
                                         <div class="col-md-4">
-                                                <div class="form-group">
-                                                        <input type="text" placeholder="Nombre del equipo de auditores" class="form-control" name="equipo" id="equipo" required>
-                                                </div>
+                                            <div class="form-group">
+                                                    <input type="text" placeholder="Nombre del equipo de auditores" class="form-control" name="equipo" id="equipo" onfocus="equiposAuditories()"required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Auditoria</label>
+                                                <select class="form-control" name="auditoria_id">
+                                                        <option value="0">General</option>
+                                                        @foreach ($auditorias as $audit)
+                                                            <option value="{{ $audit->id }}">{{ $audit->objetivo }}</option>
+                                                        @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -59,21 +70,21 @@
                                                     @if ($auditr  !=null)
                                                     @foreach($auditr as $indice => $audit)
                                                         <tr>
-                                                            <td><input type="hidden" name="idarticulo[]" id="idarticulo[]" value="{{ $audit[0]["id"] }}">{{ $audit[0]["id"] }}</td>
+                                                            <td><input type="hidden" name="idauditor[]" id="idauditor[]" value="{{ $audit[0]["id"] }}">{{ $audit[0]["id"] }}</td>
                                                             <td>
                                                                 <div class="col-md-6 offset-md-4">
-                                                                        <input type="hidden" name="precioProductos[]" id="precioProductos[]" value="{{ $audit[0]["documento"] }}">
+                                                                        <input type="hidden" name="documento[]" id="documento[]" value="{{ $audit[0]["documento"] }}">
                                                                         {{ $audit[0]["documento"] }}
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="col-md-6 offset-md-4">
-                                                                    <input type="hidden" name="descuentoProductos[]" id="descuentoProductos[]" value="{{ $audit[0]["nombre"] }}">
+                                                                    <input type="hidden" name="nombre[]" id="nombre[]" value="{{ $audit[0]["nombre"] }}">
                                                                     {{ $audit[0]["nombre"] }}
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                    <form action="{{url('/admin/auditores/')}}" method="POST" >
+                                                                    <form action="{{url('/admin/equipos/')}}" method="POST" >
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <input type="hidden" name="cart_session_id" value="{{ $indice }}">
@@ -82,6 +93,11 @@
                                                                         </button>
                                                                     </form>
                                                             </td>
+                                                            <td class="text-center">
+                                                                <input type="hidden" name="idAuditor" id="idAuditor">
+                                                                <input type="hidden" name="documentoAuditor" id="documentoAuditor">
+                                                                <input type="hidden" name="nombreAuditor" id="nombreAuditor">
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -89,7 +105,7 @@
                                             </tbody>
                                         </table>
                                         <div class="modal-footer col-md-8 offset-md-2">
-                                            <button class="btn btn-success btn-round btn-submit" id="ajaxSubmitVariante" style="width: 105%;"  >
+                                            <button class="btn btn-success btn-round btn-submit" id="ajaxSubmitEquipo" style="width: 105%;"  >
                                                     Guardar
                                             </button>
                                     </div>
@@ -101,6 +117,6 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-     <script src="{{ asset('js/interno/sales.js') }}"></script>
-    <script src="{{ asset('js/interno/impresion.js') }}"></script>
+    <script src="{{ asset('js/interno/equipo_auditores.js') }}"></script>
+    <script src="{{ asset('js/interno/guardar_equipo.js') }}"></script>
 @endsection

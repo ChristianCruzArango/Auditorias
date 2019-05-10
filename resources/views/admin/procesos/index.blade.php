@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Auditoría | Auditorias')
+@section('title','Auditoría | Procesos')
 
 @section('body-class','profile-page sidebar-collapse')
 
@@ -11,7 +11,7 @@
         <div class="container">
 
             <div class="section text-center">
-                <h2 class="title">Listado de Auditorias</h2>
+                <h2 class="title">Listado de Procesos</h2>
                 <div class="team">
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -29,42 +29,35 @@
                     @endif
                     <div class="row">
                         <div class="col-md-4 ml-auto mr-auto text-center">
-                            <a href="{{url('/admin/auditorias/create')}}" class="btn btn-primary btn-round">Nueva Auditoría</a>
+                            <a href="{{url('/admin/procesos/create')}}" class="btn btn-primary btn-round">Nuevo Proceso</a>
                         </div>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Objetivo</th>
-                                        <th>Alcance</th>
-                                        <th>Criterio</th>
-                                        <th>Recursos</th>
-                                        <th>Riesgos</th>
-                                        <th>Fecha Inicio</th>
-                                        <th>Fecha Final</th>
+                                        <th class="col-md-2 text-center">ID</th>
+                                        <th class="col-md-5 text-center">Nombre</th>
+                                        <th>Descripción</th>
                                         <th class="text-center">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($auditoria as $key => $audit)
+                                    @foreach ($procesos as $key => $proceso)
                                         <tr>
-                                            <td>{{ $audit->id }}</td>
-                                            <td>{{ $audit->objetivo }}</td>
-                                            <td>{{ $audit->alcance }}</td>
-                                            <td>{{ $audit->criterio }}</td>
-                                            <td>{{ $audit->recursos }}</td>
-                                            <td>{{ $audit->riesgos }}</td>
-                                            <td>{{ $audit->fechaInicio }}</td>
-                                            <td>{{ $audit->fechaFinal }}</td>
+                                            <td>{{ $proceso->id }}</td>
+                                            <td>{{ $proceso->nombre }}</td>
+
+                                            <td>
+                                                {{ $proceso->descripcion }}
+                                            </td>
 
                                             <td class="td-actions text-center">
-                                                <form action="{{url('/admin/auditorias/'.$audit->id)}}" method="POST" >
+                                                <form action="{{url('/admin/procesos/'.$proceso->id)}}" method="POST" >
                                                     @csrf
                                                     @method('DELETE')
-                                                        <a href="{{url('/admin/auditorias/'.$audit->id.'/edit')}}" type="button" rel="tooltip" title="Editar Auditoria" class="btn btn-success btn-simple btn-xs">
+                                                        <a href="{{url('/admin/procesos/'.$proceso->id.'/edit')}}" type="button" rel="tooltip" title="Editar Proceso" class="btn btn-success btn-simple btn-xs">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                    <button type="submit" rel="tooltip" title="Eliminar Auditoria" class="btn btn-danger btn-simple btn-xs">
+                                                    <button type="submit" rel="tooltip" title="Eliminar Proceso" class="btn btn-danger btn-simple btn-xs">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </form>
@@ -74,7 +67,7 @@
                                 </tbody>
                         </table>
                      </div>
-                     {{$auditoria->links()}}
+                     {{$procesos->links()}}
                 </div>
             </div>
 

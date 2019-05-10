@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Auditoria;
 
 
 
@@ -22,19 +23,75 @@ class EquipoAuditor extends Controller
                 $this->document($auditor,$request);
                 $auditr=$request->session()->get('carritoAuditor');
 
-                return view('admin.equipos.index',compact('auditr'));
+                $auditorias= Auditoria::orderBy('objetivo', 'DESC')->get();
+                return view('admin.equipos.index',compact('auditr','auditorias'));
             }
 
             $auditr=null;
-            return view('admin.equipos.index',compact('auditr'));
+            $auditorias= Auditoria::orderBy('objetivo', 'DESC')->get();
+
+            return view('admin.equipos.index',compact('auditr','auditorias'));
 
         }else{
              $auditr=null;
-               return view('admin.equipos.index',compact('auditr'));
+             $auditorias= Auditoria::orderBy('objetivo', 'DESC')->get();
+
+             return view('admin.equipos.index',compact('auditr','auditorias'));
          }
 
     }
 
+    public function store(Request $request){
+    dd($request);
+
+        $data= Array();
+        $arrayId = explode(",", $request->input('idArti'));
+        $arrayP = explode(",", $request->input('precio'));
+        $arrayC = explode(",", $request->input('cantidad'));
+        $arrayD = explode(",", $request->input('descuento'));
+        $data[]=array(
+            "idarticulo"=>$arrayId,
+            "precio"=>$arrayP,
+            "cantidad"=>$arrayC,
+            "descuento"=>$arrayD
+        );
+
+        $cli=$request->input('client');
+
+
+        if($cli === null){
+            $cliente= null;
+        }else{
+            $client=Client::ClientName($cli)->get();
+            foreach ($client as $key => $cli) {
+                $cliente=$cli->id;
+            }
+        }
+
+        foreach ($data as $key => $value) {
+
+            $longitud = count($value["idarticulo"]);
+
+            for($i=0; $i<$longitud; $i++){
+                $sales = new Sales();
+
+                $sales->product_id  = $value["idarticulo"][$i];
+                $sales->price = $value["precio"][$i];
+                $sales->quantity = $value["cantidad"][$i];
+                $sales->descuento = $value["descuento"][$i];
+                $sales->id_client  = $cliente;
+                $sales->forma_pago = $request->input('forma_pago');
+
+                $sales->save();
+            }
+        }
+
+        if ($sales){
+             $request->session()->forget('carrito');
+            return view('admin.ticket.info',compact('request'));
+        }
+
+    }
 
     public function document($auditor,$request){
         $data= Array();
@@ -43,7 +100,6 @@ class EquipoAuditor extends Controller
             "id"=>$id=$value->id,
             "documento"=>$name=$value->documento,
             "nombre"=>$price=$value->name,
-
             );
         }
             $request->session()->push('carritoAuditor', $data);
@@ -54,6 +110,7 @@ class EquipoAuditor extends Controller
         $auditr=$request->session()->get('carritoAuditor');
         unset($auditr[$request->cart_session_id]);
         $request->session()->put('carritoAuditor', $auditr);
-        return view('admin.equipos.index',compact('auditr'));
+        $auditorias= Auditoria::orderBy('objetivo', 'DESC')->get();
+        return view('admin.equipos.index',compact('auditr','auditorias'));
     }
 }

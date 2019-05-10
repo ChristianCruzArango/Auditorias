@@ -46,7 +46,27 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::delete('admin/auditorias/{audit}', 'admin\AuditoriaController@destroy');
 /* Fin */
 
+/* Procesos */
+Route::get('admin/procesos', 'admin\ProcesosController@index');
+Route::get('admin/procesos/create', 'admin\ProcesosController@create');
+Route::post('admin/procesos', 'admin\ProcesosController@store');
+Route::get('admin/procesos/{proceso}/edit', 'admin\ProcesosController@edit');
+Route::post('admin/procesos/{proceso}/edit', 'admin\ProcesosController@update');
+Route::delete('admin/procesos/{proceso}', 'admin\ProcesosController@destroy');
+/* Fin */
+
+/* Gestinar Procedimientos */
+Route::get('admin/procedimientos', 'admin\ProcedimientosController@index');
+Route::get('admin/procedimientos/create', 'admin\ProcedimientosController@create');
+Route::post('admin/procedimientos', 'admin\ProcedimientosController@store');
+Route::get('admin/procedimientos/{procedimiento}/edit', 'admin\ProcedimientosController@edit');
+Route::post('admin/procedimientos/{procedimiento}/edit', 'admin\ProcedimientosController@update');
+Route::delete('admin/procedimientos/{procedimiento}', 'admin\ProcedimientosController@destroy');
+/* Fin */
+
+
 /* Proceso de equipos de auditorias */
     Route::get('admin/equipos', 'admin\EquipoAuditor@index');
-    Route::delete('admin/auditores', 'admin\EquipoAuditor@destroy');
+    Route::delete('admin/equipos', 'admin\EquipoAuditor@destroy');
+    Route::post('admin/equipos/post', 'admin\EquipoAuditor@store');
 /* Fin */

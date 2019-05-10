@@ -20,8 +20,8 @@ class Auditorias extends Migration
             $table->text('criterio')->nullable();
             $table->text('recursos')->nullable();
             $table->text('riesgos')->nullable();
-            $table->timestamp('fechaInicio')->nullable();
-            $table->timestamp('fechaFinal')->nullable();
+            $table->date('fechaInicio')->nullable();
+            $table->date('fechaFinal')->nullable();
             $table->timestamps();
         });
     }

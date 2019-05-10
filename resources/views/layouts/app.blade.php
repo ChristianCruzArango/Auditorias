@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link href="{{ asset('css/material-kit.css?v=2.0.4')}}" rel="stylesheet" />
   <link rel="stylesheet" href="https://openlayers.org/en/v4.6.4/css/ol.css" type="text/css">
+
   </head>
 
 <body class="@yield('body-class')">
@@ -61,6 +62,12 @@
                                 </a>
                                 <a href="{{ url('/admin/auditorias') }}" class="dropdown-item">
                                     {{ __("Gestionar Auditoría") }}
+                                </a>
+                                <a href="{{ url('/admin/procesos') }}" class="dropdown-item">
+                                    {{ __("Gestionar Procesos") }}
+                                </a>
+                                <a href="{{ url('/admin/procedimientos') }}" class="dropdown-item">
+                                    {{ __("Gestionar Procedimientos") }}
                                 </a>
                                 <a href="{{ url('/admin/equipos') }}" class="dropdown-item">
                                     {{ __("Equipos de Auditoria") }}
